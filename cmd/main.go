@@ -98,7 +98,7 @@ func main() {
 		deltaIter := time.Since(startIter)
 		totalIterTime += deltaIter
 		avgIterTime = totalIterTime.Nanoseconds() / (i + 1)
-		fmt.Printf("\r\nIteration Time: %v\r\n", deltaIter)
+		fmt.Printf("\r\nIteration %v Time: %v\r\n", i+1, deltaIter)
 		fmt.Printf("Average Iteration (encode+decode+checksum): %v\r\n", time.Duration(avgIterTime))
 	}
 	fmt.Printf("EndTime: %v\r\n", time.Now())

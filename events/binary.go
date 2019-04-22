@@ -16,10 +16,14 @@ func NewBinaryEvent(coredataCBOR bool, smallPayload bool) (data []byte, err erro
 	if err != nil {
 		return
 	}
+	mediumPayload := true
 	if smallPayload { // 100k
 		imgPath += "/lebowski.jpg"
-	} else { //900k (medium)
+	} else if mediumPayload { //900k (medium)
 		imgPath += "/1080p_Istanbul_by_yusuf_fersat_5.JPG"
+	} else { //12MB (large)
+		// Attribution: Dietmar Rabich
+		imgPath += "/Large_Dülmen_St.-Viktor-Kirche_--_2015_--_9906.jpg"
 	}
 
 	file, err := os.Open(imgPath)
