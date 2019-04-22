@@ -5,15 +5,15 @@
 
 3.) `go build`
 
-4.) There are two ways to execute the program. To benchmark events generated without a binary value, simply call `./cmd`.
-To generate a checksum for an event with a binary value, call `./cmd -b`
+4.) Execute the program, for example
+`./cmd -i=1000 -b=true -p=false -c=true -s=false`
 
 5.) Additional parameters:
 
 param | type | description
-======|======|========================
+------|------|---------------------
 -i | int64 | Perform a number of iterations.
--b | bool | True = Generate binary events. False = Generate simple events.
--s | bool | True = When generating binary events, use 100kb image. False = 900kb image.
--p | bool | True = Print the encoded/decoded data.
--c | bool | True = Use contract client form of CBOR encoder/decoder. False = DSDK method/style.
+-b | bool | Generate binary events. True=binary, False=simple.
+-p | bool | Print encoded/decoded data and generated checksum (incurs I/O overhead). True=print, False=silent.
+-c | bool | Use CBOR encoder/decoder in form provided in core-contract. True=contract's style, False=DSDK method/style.
+-s | bool | When generating binary events, use Small image. True=100kb image, False=900kb image.
