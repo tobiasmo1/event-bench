@@ -11,7 +11,7 @@ To generate a checksum for an event with a binary value, call `./cmd -b`
 5.) Additional parameters:
 
 param | type | description
-======|======|========================
+------|------|---------------------
 -i | int64 | Perform a number of iterations.
 -b | bool | True = Generate binary events. False = Generate simple events.
 -s | bool | True = When generating binary events, use 100kb image. False = 900kb image.
