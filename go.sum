@@ -1,3 +1,5 @@
+github.com/OneOfOne/xxhash v1.2.5 h1:zl/OfRA6nftbBK9qTohYBJ5xvw6C/oNKizR7cZGl3cI=
+github.com/OneOfOne/xxhash v1.2.5/go.mod h1:eZbhyaAYD41SGSSsnmcpxVoRiQ/MPUTjUdIIOT9Um7Q=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/edgexfoundry/go-mod-core-contracts v0.0.0-20190418185811-6fa3b1fed53b h1:+AHu/KXjRvTqsFppY2Iue7Bd2qaxf/TXMH6ydptPQpA=
 github.com/edgexfoundry/go-mod-core-contracts v0.0.0-20190418185811-6fa3b1fed53b/go.mod h1:yVAVTeH1lbp+3YG2V7sq3iIerZj94lC0rZX1sryGfTY=

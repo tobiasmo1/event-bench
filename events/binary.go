@@ -11,21 +11,26 @@ import (
 	"github.com/ugorji/go/codec"
 )
 
-func NewBinaryEvent(coredataCBOR bool, smallPayload bool) (data []byte, err error) {
+type PayloadSize int
+const (
+	Small PayloadSize = 1 + iota
+	Medium
+	Large
+)
+func NewBinaryEvent(coredataCBOR bool, payloadSize PayloadSize) (evt models.Event, err error) {
 	imgPath, err := findPath()
 	if err != nil {
 		return
 	}
-	mediumPayload := true
-	if smallPayload { // 100k
+	switch payloadSize {
+	case Small: // 100k
 		imgPath += "/lebowski.jpg"
-	} else if mediumPayload { //900k (medium)
+	case Medium:  //900k (medium)
 		imgPath += "/1080p_Istanbul_by_yusuf_fersat_5.JPG"
-	} else { //12MB (large)
+	case Large: //12MB (large)
 		// Attribution: Dietmar Rabich
 		imgPath += "/Large_Dülmen_St.-Viktor-Kirche_--_2015_--_9906.jpg"
 	}
-
 	file, err := os.Open(imgPath)
 	if err != nil {
 		return
@@ -41,13 +46,17 @@ func NewBinaryEvent(coredataCBOR bool, smallPayload bool) (data []byte, err erro
 
 	timestamp := MakeTimestamp()
 	deviceName := "RandomDevice-2"
-	evt := models.Event{ Created:timestamp, Modified:timestamp, Device:deviceName }
+	evt = models.Event{ Created:timestamp, Modified:timestamp, Device:deviceName }
 	readings := []models.Reading{}
 	readings = append(readings, models.Reading{Created:timestamp, Modified:timestamp, Device:deviceName, Name:"Reading2", Value:"789"})
 	readings = append(readings, models.Reading{Created:timestamp, Modified:timestamp, Device:deviceName, Name:"Reading1", Value:"XYZ"})
 	readings = append(readings, models.Reading{Created:timestamp, Modified:timestamp, Device:deviceName, Name:"Reading1", BinaryValue:bytes})
 	evt.Readings = readings
 
+	return
+}
+
+func EncodeCBOR(coredataCBOR bool, evt models.Event) (data []byte, err error) {
 	/* Simple form */
 	if coredataCBOR {
 		var handle codec.CborHandle
@@ -55,9 +64,9 @@ func NewBinaryEvent(coredataCBOR bool, smallPayload bool) (data []byte, err erro
 		enc := codec.NewEncoderBytes(&data, &handle)
 		err = enc.Encode(evt)
 	} else {
-		data, _ = encodeBinaryValue(evt)
+		data, err = encodeBinaryValue(evt)
 	}
-	return
+	return data, err
 }
 
 func findPath() (path string, err error) {
